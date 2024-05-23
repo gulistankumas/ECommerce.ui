@@ -20,6 +20,17 @@ public:
      QString getTelefon() const { return _telefon; }
      QString getAdres() const { return _adres; }
 
+     // Diğer fonksiyonlar
+      void musteriBilgileriniGoster() const {
+          qDebug() << "Müşteri Adı: " << _adi;
+          qDebug() << "Soyadı: " << _soyadi;
+          qDebug() << "Telefon: " << _telefon;
+          qDebug() << "Adres: " << _adres;
+      }
+ 
+ QVector<UrunBilgileri> gecmisSiparisler;
+ QSet<QString> gecmisSiparisKategorileri;
+
 public slots:
      void setAdres(const QString &newAdres) {
          if (_adres != newAdres) {
