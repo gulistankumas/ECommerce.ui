@@ -20,7 +20,7 @@ public:
      QString getTelefon() const { return _telefon; }
      QString getAdres() const { return _adres; }
 
- public slots:
+public slots:
      void setAdres(const QString &newAdres) {
          if (_adres != newAdres) {
              _adres = newAdres;
