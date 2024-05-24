@@ -108,9 +108,18 @@ private:
     Q_PROPERTY(QString yetkiliKisi READ getYetkiliKisi WRITE setYetkiliKisi RESET resetYetkiliKisi NOTIFY yetkiliKisiDegisti FINAL)
     Q_PROPERTY(QString magazaAdi READ getMagazaAdi WRITE setMagazaAdi RESET resetMagazaAdi NOTIFY magazaAdiDegisti FINAL)
 
-    friend QDataStream &operator<<(QDataStream &stream, const Magaza &data);
+    // Serileştirme operatörü
+    friend QDataStream &operator<<(QDataStream &stream, const Magaza &data) {
+        stream << data._adres << data._telefon << data._yetkiliKisi << data._magazaAdi;
+        return stream;
+    }
 
-    friend QDataStream &operator>>(QDataStream &stream, Magaza &data);
+    // Geri yükleme operatörü
+    friend QDataStream &operator>>(QDataStream &stream, Magaza &data) {
+        stream >> data._adres >> data._telefon >> data._yetkiliKisi >> data._magazaAdi;
+        return stream;
+    }
+
 
 
 
