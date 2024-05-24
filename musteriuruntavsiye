@@ -1,0 +1,32 @@
+#pragma once
+
+#include <QObject>
+#include <QVector>
+#include <QDataStream>
+#include "Musteri.h"
+#include "Magaza.h"
+#include "urunbilgileri.h"
+
+class MusteriUrunTavsiye : public QObject {
+    Q_OBJECT
+public:
+    explicit MusteriUrunTavsiye(QObject* parent = nullptr) : QObject(parent) {}
+
+public slots:
+    QVector<UrunBilgileri> urun_tavsiye_et(const Musteri& musteri, const Magaza& magaza);
+
+signals:
+    void urun_tavsiye_edildi(const QVector<UrunBilgileri>& urunler);
+
+    friend QDataStream &operator<<(QDataStream &stream, const MusteriUrunTavsiye &data) {
+        // Serileştirme işlemleri burada yapılır
+        return stream;
+    }
+
+    friend QDataStream &operator>>(QDataStream &stream, MusteriUrunTavsiye &data) {
+        // Serileştirilmiş veriyi okuma işlemleri burada yapılır
+        return stream;
+    }
+};
+
+
