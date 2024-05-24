@@ -1,0 +1,43 @@
+#pragma once
+
+#include <QObject>
+#include <QString>
+#include "Urun_bilgileri.h"
+#include "PuanYorum.h"
+
+class SiparisUrunu : public QObject {
+    Q_OBJECT
+public:
+    explicit SiparisUrunu(const Urun_bilgileri& urun, int adet, double birimFiyat, const PuanYorum& _urunPuanYorum, QObject* parent = nullptr)
+        : QObject(parent), siparisUrunu(urun), siparisAdedi(adet), birimFiyat(birimFiyat), urunPuanYorum(_urunPuanYorum) {}
+
+    const Urun_bilgileri& geturun() const {
+        return siparisUrunu;
+    }
+
+    int getSiparisAdedi() const {
+        return siparisAdedi;
+    }
+
+    double toplamTutar() const {
+        return siparisAdedi * birimFiyat;
+    }
+
+public slots:
+    void puanEkle(double yeniPuan, const QString& yeniYorum) {
+        urunPuanYorum.puanEkle(yeniPuan, yeniYorum);
+    }
+
+signals:
+    void kategoriAdiDegisti(const QString& kategoriAdi);
+
+private:
+    const Urun_bilgileri siparisUrunu; //! Sipariş edilen ürün bilgileri.
+    int siparisAdedi; //! Sipariş edilen ürün adedi.
+    double birimFiyat; //! Ürünün birim fiyatı.
+    PuanYorum urunPuanYorum; //! Ürünün puan ve yorum bilgileri.
+    QString kategoriAdi; //! Ürünün kategorisi.
+
+    Q_PROPERTY(QString kategoriAdi MEMBER kategoriAdi NOTIFY kategoriAdiDegisti FINAL)
+};
+
